@@ -48,15 +48,31 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="10dp"
             android:contentDescription="Credit Card Security Code Field"
             android:hint=" CVV "
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="number"
             android:maxLength="3"
-            android:nextFocusRight="@null"
             android:textSize="@dimen/checkout_input_field_text_size"
             android:color="@color/DKGRAY" />
+
+        <com.paymentkit.views.ZipCodeEditText
+                android:id="@+id/zip_code"
+                style="@style/CheckoutAddCardField"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="Zip Code Field"
+                android:hint="&#160;&#160;ZIP&#160;&#160;&#160;"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="5"
+                android:nextFocusRight="@null"
+                android:textSize="@dimen/checkout_input_field_text_size"
+                android:color="@color/DKGRAY" />
+
     </LinearLayout>
 
 </merge>

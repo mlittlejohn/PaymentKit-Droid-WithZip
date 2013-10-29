@@ -62,7 +62,7 @@ public class CVVEditText extends EditText {
 			if(hasFocus) {
 				mListener.onCVVEntry();
 			} else {
-				mListener.onCVVEntryComplete();
+				mListener.onZipEntryComplete();
 			}
 		}
 	};
@@ -114,9 +114,7 @@ public class CVVEditText extends EditText {
 		@Override
 		public void afterTextChanged(Editable s) {
 			if (s.length() == FieldHolder.CVV_MAX_LENGTH) {
-				//mListener.onCVVEntryComplete();
-				ViewUtils.hideSoftKeyboard((Activity)getContext());
-				clearFocus();
+                mListener.onZipCodeEntry();
 			}
 		}
 

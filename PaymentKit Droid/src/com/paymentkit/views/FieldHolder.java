@@ -27,6 +27,7 @@ import com.paymentkit.views.CardIcon.CardFace;
 public class FieldHolder extends RelativeLayout {
 	
 	public static int CVV_MAX_LENGTH = 3;
+    public static int ZIP_CODE_LENGTH = 5;
 	
 	protected static final int AMEX_CARD_LENGTH = 17;
 	public static final int NON_AMEX_CARD_LENGTH = 19;
@@ -38,6 +39,7 @@ public class FieldHolder extends RelativeLayout {
 	private CardNumHolder mCardHolder;
 	private ExpirationEditText mExpirationEditText;
 	private CVVEditText mCVVEditText;
+    private ZipCodeEditText mZipCodeEditText;
 	private CardIcon mCardIcon;
 	private LinearLayout mExtraFields;
 	
@@ -83,6 +85,7 @@ public class FieldHolder extends RelativeLayout {
 		mExtraFields = (LinearLayout) findViewById(R.id.extra_fields);
 		mExpirationEditText = (ExpirationEditText) findViewById(R.id.expiration);
 		mCVVEditText = (CVVEditText) findViewById(R.id.security_code);
+        mZipCodeEditText = (ZipCodeEditText) findViewById(R.id.zip_code);
 		mCardHolder.setCardEntryListener(mCardEntryListener);
 		setupViews();
 	}
@@ -110,6 +113,7 @@ public class FieldHolder extends RelativeLayout {
 	private void setCardEntryListeners() {
 		mExpirationEditText.setCardEntryListener(mCardEntryListener);
 		mCVVEditText.setCardEntryListener(mCardEntryListener);
+        mZipCodeEditText.setCardEntryListener(mCardEntryListener);
 	}
 
 	private void validateCard() {
@@ -162,10 +166,13 @@ public class FieldHolder extends RelativeLayout {
 
 		public void onCVVEntry();
 
-		public void onCVVEntryComplete();
+        public void onZipCodeEntry();
+
+		public void onZipEntryComplete();
 
 		public void onBackFromCVV();
 
+        public void onBackFromZip();
 	}
 	
 	private void setCVVMaxLength(int val) {
@@ -229,8 +236,14 @@ public class FieldHolder extends RelativeLayout {
 			mCVVEditText.requestFocus();
 		}
 
-		@Override
-		public void onCVVEntryComplete() {
+        @Override
+        public void onZipCodeEntry()
+        {
+            mZipCodeEditText.requestFocus();
+        }
+
+        @Override
+		public void onZipEntryComplete() {
 			mCardIcon.flipTo(CardFace.FRONT);
 			FieldHolder.this.requestFocus();
 			// complete
@@ -242,6 +255,10 @@ public class FieldHolder extends RelativeLayout {
 			mCardIcon.flipTo(CardFace.FRONT);
 		}
 
+        @Override
+        public void onBackFromZip() {
+            mCVVEditText.requestFocus();
+        }
 	};
 	
 	public boolean isFieldsValid() {
@@ -249,7 +266,9 @@ public class FieldHolder extends RelativeLayout {
 			return false;
 		} else if (mCVVEditText.getText().toString().length() != CVV_MAX_LENGTH) {
 			return false;
-		}
+		} else if (mZipCodeEditText.getText().toString().length() != ZIP_CODE_LENGTH) {
+            return false;
+        }
 		return true;
 	}
 
